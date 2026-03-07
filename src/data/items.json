@@ -2,16 +2,29 @@
   {
     "name": "Objeto 1",
     "description": "Descripción 1",
-    "id": 1
+    "id": 1,
+    "price": 10,
+    "category": "General",
+    "stock": 20,
+    "image": "https://via.placeholder.com/200"
   },
   {
     "name": "Objeto 2",
     "description": "Descripción 2",
-    "id": 2
+    "id": 2,
+    "price": 25,
+    "category": "Herramienta",
+    "stock": 10,
+    "image": "https://via.placeholder.com/200"
   },
   {
     "name": "hola",
     "description": "valeria",
     "id": 1772629462679
+  },
+  {
+    "name": "hola",
+    "description": "valeria",
+    "id": 1772846094484
   }
 ]
