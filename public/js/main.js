@@ -41,6 +41,7 @@ tableBody.addEventListener("click", async (e) => {
 // Envío del form
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const name = form.querySelector("#name").value;
     const description = form.querySelector("#description").value;
     const price = form.querySelector("#price").value;
@@ -48,21 +49,27 @@ form.addEventListener("submit", async (e) => {
     const stock = form.querySelector("#stock").value;
     const image = form.querySelector("#image").value;
 
-    if (!name) {
-        alert("El campo nombre es obligatorio");
-        return;
-    }
+    const data = {
+        name,
+        description,
+        price,
+        category,
+        stock,
+        image
+    };
 
     try {
+
         if (editingId) {
-            await updateItem(editingId, { name, description });
+            await updateItem(editingId, data);
             editingId = null;
         } else {
-            await createItem({ name, description });
+            await createItem(data);
         }
 
         resetForm(form, submitBtn);
         loadItems();
+
     } catch (err) {
         console.error("Error guardando item:", err);
         alert("No se pudo guardar el item.");

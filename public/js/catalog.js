@@ -38,6 +38,8 @@ function renderItem(item) {
      card.innerHTML = `
         <h3>${item.name}</h3>
         <p>${item.description || "Sin descripción"}</p>
+        <p><b>Precio:</b> $${item.price || "0"}</p>
+        <p><b>Categoría:</b> ${item.category || "Sin categoría"}</p>
         <button class="btn-detail" data-id="${item.id}">
             Ver detalle
         </button>
@@ -48,3 +50,32 @@ function renderItem(item) {
 
 // Inicializar el catálogo cuando cargue la página
 loadCatalog();
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.getElementById("closeModal");
+
+document.addEventListener("click", async (e) => {
+
+    if (e.target.classList.contains("btn-detail")) {
+
+        const id = e.target.dataset.id;
+
+        const res = await fetch(`/api/items/${id}`);
+        const item = await res.json();
+
+        modalBody.innerHTML = `
+            <h2>${item.name}</h2>
+            <p>${item.description}</p>
+            <p><b>Precio:</b> $${item.price}</p>
+            <p><b>Categoría:</b> ${item.category}</p>
+            <p><b>Stock:</b> ${item.stock}</p>
+            <img src="${item.image}" width="200">
+        `;
+
+        modal.classList.remove("hidden");
+    }
+});
+
+closeModal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
