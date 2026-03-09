@@ -36,6 +36,7 @@ function renderItem(item) {
     card.classList.add("card");
     // TODO: Asignar los datos del item (name, description, etc.)
      card.innerHTML = `
+         <img src="${item.image || 'https://via.placeholder.com/200'}">
         <h3>${item.name}</h3>
         <p>${item.description || "Sin descripción"}</p>
         <p><b>Precio:</b> $${item.price || "0"}</p>
