@@ -36,13 +36,25 @@ function handleItemsRoutes(req, res) {
     // POST /api/items
     if (req.method === "POST" && req.url === "/api/items") {
         let body = "";
-        req.on("data", chunk => body += chunk);
-        req.on("end", () => {
+        req.on("data", chunk => {
+        body += chunk.toString();
+    });
+        req.on("end", async() => {
+            const data = JSON.parse(body);
             const items = readData();
-            const nuevo = JSON.parse(body);
-            nuevo.id = Date.now();
+             const nuevo = {
+            id: Date.now(),
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            category: data.category,
+            stock: data.stock,
+            image: data.image
+        };
+            
             items.push(nuevo);
             writeData(items);
+            res.writeHead(201, { "Content-Type": "application/json" });
             res.end(JSON.stringify(nuevo));
         });
         return true;
